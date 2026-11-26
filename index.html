@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>首頁 | 輕目眼鏡 LightEyes</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: "Noto Sans TC", "Microsoft JhengHei", sans-serif; background: #fafaf7; color: #3a3a3a; line-height: 1.7; }
+a { text-decoration: none; color: inherit; }
+.navbar { display: flex; justify-content: space-between; align-items: center; padding: 18px 48px; background: #fff; box-shadow: 0 2px 12px rgba(0,0,0,.04); position: sticky; top: 0; z-index: 100; }
+.logo { font-size: 1.5rem; font-weight: 700; letter-spacing: 2px; color: #6c9a8b; }
+.logo span { font-size: .9rem; font-weight: 400; color: #a8c5b8; letter-spacing: 1px; }
+.navbar nav a { margin-left: 32px; font-size: 1rem; color: #666; transition: color .3s, border-bottom .3s; padding-bottom: 4px; border-bottom: 2px solid transparent; }
+.navbar nav a:hover, .navbar nav a.active { color: #6c9a8b; border-bottom-color: #6c9a8b; }
+.carousel-section { padding: 40px 48px 0; }
+.carousel-container { position: relative; max-width: 1100px; margin: 0 auto; border-radius: 24px; overflow: hidden; box-shadow: 0 12px 40px rgba(108,154,139,.15); }
+.carousel-slides { position: relative; width: 100%; height: 420px; }
+.slide { position: absolute; inset: 0; opacity: 0; transition: opacity .8s ease; }
+.slide.active { opacity: 1; }
+.slide img { width: 100%; height: 100%; object-fit: cover; }
+.slide-caption { position: absolute; bottom: 0; left: 0; width: 100%; padding: 24px 32px; background: linear-gradient(transparent, rgba(0,0,0,.45)); color: #fff; font-size: 1.3rem; letter-spacing: 2px; }
+.carousel-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,.85); border: none; width: 48px; height: 48px; border-radius: 50%; font-size: 1.2rem; color: #6c9a8b; cursor: pointer; transition: background .3s, transform .2s; box-shadow: 0 4px 12px rgba(0,0,0,.1); }
+.carousel-btn:hover { background: #fff; transform: translateY(-50%) scale(1.08); }
+.carousel-btn.prev { left: 16px; }
+.carousel-btn.next { right: 16px; }
+.carousel-dots { position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%); display: flex; gap: 10px; }
+.dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,.5); cursor: pointer; transition: background .3s; }
+.dot.active { background: #fff; }
+.hero-text { text-align: center; padding: 60px 24px 40px; }
+.hero-text h1 { font-size: 2.6rem; color: #3a3a3a; font-weight: 700; line-height: 1.4; letter-spacing: 3px; }
+.hero-text p { margin: 20px auto 32px; max-width: 520px; color: #777; font-size: 1.05rem; }
+.promo-btn { background: #6c9a8b; color: #fff; border: none; padding: 14px 36px; font-size: 1rem; border-radius: 50px; cursor: pointer; letter-spacing: 1px; transition: background .3s, transform .2s, box-shadow .3s; box-shadow: 0 6px 20px rgba(108,154,139,.35); }
+.promo-btn:hover { background: #5a8778; transform: translateY(-2px); box-shadow: 0 10px 28px rgba(108,154,139,.45); }
+.features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; max-width: 1100px; margin: 20px auto 80px; padding: 0 48px; }
+.feature-card { background: #fff; padding: 36px 28px; border-radius: 20px; text-align: center; box-shadow: 0 8px 28px rgba(0,0,0,.04); transition: transform .3s, box-shadow .3s; }
+.feature-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(108,154,139,.15); }
+.feature-card .icon { font-size: 2.4rem; margin-bottom: 16px; }
+.feature-card h3 { font-size: 1.2rem; color: #6c9a8b; margin-bottom: 10px; letter-spacing: 1px; }
+.feature-card p { color: #777; font-size: .95rem; }
+footer { text-align: center; padding: 32px 24px; background: #fff; color: #999; font-size: .85rem; letter-spacing: 1px; border-top: 1px solid #f0f0ec; }
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.45); display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: opacity .3s, visibility .3s; z-index: 1000; }
+.modal-overlay.show { opacity: 1; visibility: visible; }
+.modal-content { background: #fff; padding: 44px 40px 36px; border-radius: 24px; max-width: 420px; width: 90%; text-align: center; position: relative; box-shadow: 0 24px 60px rgba(0,0,0,.2); transform: translateY(20px); transition: transform .3s; }
+.modal-overlay.show .modal-content { transform: translateY(0); }
+.modal-close { position: absolute; top: 12px; right: 20px; font-size: 1.8rem; color: #bbb; cursor: pointer; transition: color .3s; }
+.modal-close:hover { color: #6c9a8b; }
+.modal-content h2 { font-size: 1.5rem; color: #3a3a3a; margin-bottom: 16px; letter-spacing: 1px; }
+.modal-content p { color: #666; margin-bottom: 10px; font-size: .98rem; }
+.modal-content strong { color: #e07a5f; font-size: 1.2rem; }
+.modal-content .small { font-size: .82rem; color: #aaa; margin-top: 10px; }
+.modal-btn { margin-top: 22px; padding: 12px 36px; background: #6c9a8b; color: #fff; border: none; border-radius: 50px; font-size: 1rem; cursor: pointer; letter-spacing: 1px; transition: background .3s, transform .2s; }
+.modal-btn:hover { background: #5a8778; transform: translateY(-2px); }
+@media (max-width: 900px) {
+  .navbar { padding: 14px 24px; flex-direction: column; gap: 10px; }
+  .navbar nav a { margin: 0 12px; }
+  .carousel-section { padding: 24px 16px 0; }
+  .carousel-slides { height: 280px; }
+  .slide-caption { font-size: 1rem; padding: 16px 20px; }
+  .hero-text h1 { font-size: 1.8rem; }
+  .features { grid-template-columns: 1fr; padding: 0 24px; gap: 20px; }
+}
+@media (max-width: 480px) {
+  .carousel-slides { height: 200px; }
+  .carousel-btn { width: 36px; height: 36px; font-size: .9rem; }
+  .hero-text h1 { font-size: 1.5rem; }
+  .hero-text p { font-size: .92rem; }
+  .modal-content { padding: 36px 24px 28px; }
+}
+</style>
+</head>
+<body>
+<header class="navbar">
+  <div class="logo">輕目 <span>LightEyes</span></div>
+  <nav>
+    <a href="index.html" class="active">首頁</a>
+    <a href="products.html">產品介紹</a>
+    <a href="contact.html">聯絡我們</a>
+  </nav>
+</header>
+
+<section class="carousel-section">
+  <div class="carousel-container">
+    <div class="carousel-slides" id="carouselSlides">
+      <div class="slide active">
+        <img src="https://images.unsplash.com/photo-1577803645773-f96470509666?w=1200&h=500&fit=crop&crop=faces" alt="輕盈金屬圓框眼鏡">
+        <div class="slide-caption">輕盈舒適 · 展現自我</div>
+      </div>
+      <div class="slide">
+        <img src="https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=1200&h=500&fit=crop" alt="彩色膠框眼鏡">
+        <div class="slide-caption">繽紛色彩 · 活力每一天</div>
+      </div>
+      <div class="slide">
+        <img src="https://images.unsplash.com/photo-1574258495973-f010dfbb5371?w=1200&h=500&fit=crop" alt="簡約設計眼鏡">
+        <div class="slide-caption">簡約設計 · 青春無負擔</div>
+      </div>
+    </div>
+    <button class="carousel-btn prev" id="prevBtn">❮</button>
+    <button class="carousel-btn next" id="nextBtn">❯</button>
+    <div class="carousel-dots" id="carouselDots"></div>
+  </div>
+</section>
+
+<section class="hero-text">
+  <h1>看見青春，<br>從一副好眼鏡開始。</h1>
+  <p>輕目眼鏡以簡約設計與輕盈材質，陪伴你探索世界的每個角落。</p>
+  <button class="promo-btn" id="promoBtn">✨ 點我領取專屬優惠</button>
+</section>
+
+<section class="features">
+  <div class="feature-card"><div class="icon">🌿</div><h3>輕盈材質</h3><p>採用輕量鈦合金與環保樹脂，長時間配戴也無負擔。</p></div>
+  <div class="feature-card"><div class="icon">🎨</div><h3>青春配色</h3><p>多款馬卡龍色系鏡框，輕鬆搭配每日穿搭。</p></div>
+  <div class="feature-card"><div class="icon">👓</div><h3>簡約設計</h3><p>線條乾淨、輪廓柔和，展現自然不做作的風格。</p></div>
+</section>
+
+<footer><p>© 2025 輕目眼鏡 LightEyes · 簡約青春，看見美好</p></footer>
+
+<div class="modal-overlay" id="promoModal">
+  <div class="modal-content">
+    <span class="modal-close" id="modalClose">&times;</span>
+    <h2>🎉 青春限定優惠</h2>
+    <p>全站商品 <strong>85 折</strong>！</p>
+    <p>價格已自動換算為人民幣，<br>折後價直接顯示在商品頁。</p>
+    <p class="small">活動限時進行中，心動不如行動！</p>
+    <button class="modal-btn" id="modalBtn">立即選購</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  // 輪播
+  const slides = document.querySelectorAll('.slide');
+  const dotsContainer = document.getElementById('carouselDots');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  let current = 0, autoTimer = null;
+  dotsContainer.innerHTML = '';
+  slides.forEach((_, i) => {
+    const dot = document.createElement('span');
+    dot.classList.add('dot');
+    if (i === 0) dot.classList.add('active');
+    dot.addEventListener('click', () => goToSlide(i));
+    dotsContainer.appendChild(dot);
+  });
+  const dots = document.querySelectorAll('.dot');
+  function goToSlide(index) {
+    if (!slides[current] || !dots[current]) return;
+    slides[current].classList.remove('active');
+    dots[current].classList.remove('active');
+    current = (index + slides.length) % slides.length;
+    slides[current].classList.add('active');
+    dots[current].classList.add('active');
+  }
+  function nextSlide() { goToSlide(current + 1); }
+  function prevSlide() { goToSlide(current - 1); }
+  prevBtn.onclick = () => { prevSlide(); resetAutoPlay(); };
+  nextBtn.onclick = () => { nextSlide(); resetAutoPlay(); };
+  function startAutoPlay() { autoTimer = setInterval(nextSlide, 4500); }
+  function resetAutoPlay() { clearInterval(autoTimer); startAutoPlay(); }
+  startAutoPlay();
+
+  // 彈窗
+  const modal = document.getElementById('promoModal');
+  const closeBtn = document.getElementById('modalClose');
+  const modalBtn = document.getElementById('modalBtn');
+  function openModal() { modal.classList.add('show'); document.body.style.overflow = 'hidden'; }
+  function closeModal() { modal.classList.remove('show'); document.body.style.overflow = ''; }
+  document.getElementById('promoBtn').onclick = openModal;
+  closeBtn.onclick = closeModal;
+  modal.onclick = (e) => { if (e.target === modal) closeModal(); };
+  document.onkeydown = (e) => { if (e.key === 'Escape' && modal.classList.contains('show')) closeModal(); };
+  modalBtn.onclick = () => { closeModal(); window.location.href = 'products.html'; };
+})();
+</script>
+</body>
+</html>

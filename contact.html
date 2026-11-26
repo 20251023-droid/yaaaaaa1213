@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>聯絡我們 | 輕目眼鏡 LightEyes</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: "Noto Sans TC", "Microsoft JhengHei", sans-serif; background: #fafaf7; color: #3a3a3a; line-height: 1.7; }
+a { text-decoration: none; color: inherit; }
+.navbar { display: flex; justify-content: space-between; align-items: center; padding: 18px 48px; background: #fff; box-shadow: 0 2px 12px rgba(0,0,0,.04); position: sticky; top: 0; z-index: 100; }
+.logo { font-size: 1.5rem; font-weight: 700; letter-spacing: 2px; color: #6c9a8b; }
+.logo span { font-size: .9rem; font-weight: 400; color: #a8c5b8; letter-spacing: 1px; }
+.navbar nav a { margin-left: 32px; font-size: 1rem; color: #666; transition: color .3s, border-bottom .3s; padding-bottom: 4px; border-bottom: 2px solid transparent; }
+.navbar nav a:hover, .navbar nav a.active { color: #6c9a8b; border-bottom-color: #6c9a8b; }
+.page-header { text-align: center; padding: 60px 24px 30px; }
+.page-header h1 { font-size: 2.2rem; color: #3a3a3a; letter-spacing: 3px; margin-bottom: 12px; }
+.page-header p { color: #888; font-size: 1rem; }
+.contact-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; max-width: 1000px; margin: 20px auto 80px; padding: 0 48px; }
+.contact-info, .contact-form { background: #fff; padding: 36px; border-radius: 20px; box-shadow: 0 8px 28px rgba(0,0,0,.05); }
+.contact-info h2, .contact-form h2 { font-size: 1.3rem; color: #6c9a8b; margin-bottom: 20px; letter-spacing: 1px; }
+.contact-info p { margin-bottom: 12px; color: #666; font-size: .95rem; }
+.contact-info .promo-btn { margin-top: 20px; }
+.contact-form label { display: block; margin: 16px 0 6px; font-size: .9rem; color: #555; }
+.contact-form input, .contact-form textarea { width: 100%; padding: 12px 16px; border: 1px solid #e0e0e0; border-radius: 12px; font-size: .95rem; font-family: inherit; background: #fafaf7; transition: border-color .3s, box-shadow .3s; }
+.contact-form input:focus, .contact-form textarea:focus { outline: none; border-color: #6c9a8b; box-shadow: 0 0 0 3px rgba(108,154,139,.12); }
+.submit-btn { margin-top: 20px; width: 100%; padding: 14px; background: #6c9a8b; color: #fff; border: none; border-radius: 50px; font-size: 1rem; cursor: pointer; letter-spacing: 1px; transition: background .3s, transform .2s; }
+.submit-btn:hover { background: #5a8778; transform: translateY(-2px); }
+.form-note { margin-top: 14px; color: #6c9a8b; font-size: .9rem; text-align: center; }
+.promo-btn { background: #6c9a8b; color: #fff; border: none; padding: 14px 36px; font-size: 1rem; border-radius: 50px; cursor: pointer; letter-spacing: 1px; transition: background .3s, transform .2s, box-shadow .3s; box-shadow: 0 6px 20px rgba(108,154,139,.35); }
+.promo-btn:hover { background: #5a8778; transform: translateY(-2px); box-shadow: 0 10px 28px rgba(108,154,139,.45); }
+footer { text-align: center; padding: 32px 24px; background: #fff; color: #999; font-size: .85rem; letter-spacing: 1px; border-top: 1px solid #f0f0ec; }
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.45); display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: opacity .3s, visibility .3s; z-index: 1000; }
+.modal-overlay.show { opacity: 1; visibility: visible; }
+.modal-content { background: #fff; padding: 44px 40px 36px; border-radius: 24px; max-width: 420px; width: 90%; text-align: center; position: relative; box-shadow: 0 24px 60px rgba(0,0,0,.2); transform: translateY(20px); transition: transform .3s; }
+.modal-overlay.show .modal-content { transform: translateY(0); }
+.modal-close { position: absolute; top: 12px; right: 20px; font-size: 1.8rem; color: #bbb; cursor: pointer; transition: color .3s; }
+.modal-close:hover { color: #6c9a8b; }
+.modal-content h2 { font-size: 1.5rem; color: #3a3a3a; margin-bottom: 16px; letter-spacing: 1px; }
+.modal-content p { color: #666; margin-bottom: 10px; font-size: .98rem; }
+.modal-content strong { color: #e07a5f; font-size: 1.2rem; }
+.modal-content .small { font-size: .82rem; color: #aaa; margin-top: 10px; }
+.modal-btn { margin-top: 22px; padding: 12px 36px; background: #6c9a8b; color: #fff; border: none; border-radius: 50px; font-size: 1rem; cursor: pointer; letter-spacing: 1px; transition: background .3s, transform .2s; }
+.modal-btn:hover { background: #5a8778; transform: translateY(-2px); }
+@media (max-width: 900px) {
+  .navbar { padding: 14px 24px; flex-direction: column; gap: 10px; }
+  .navbar nav a { margin: 0 12px; }
+  .contact-wrapper { grid-template-columns: 1fr; padding: 0 24px; gap: 28px; }
+  .page-header h1 { font-size: 1.7rem; }
+}
+@media (max-width: 480px) {
+  .modal-content { padding: 36px 24px 28px; }
+}
+</style>
+</head>
+<body>
+<header class="navbar">
+  <div class="logo">輕目 <span>LightEyes</span></div>
+  <nav>
+    <a href="index.html">首頁</a>
+    <a href="products.html">產品介紹</a>
+    <a href="contact.html" class="active">聯絡我們</a>
+  </nav>
+</header>
+
+<section class="page-header">
+  <h1>聯絡我們</h1>
+  <p>有任何問題，歡迎隨時與我們聯繫。</p>
+</section>
+
+<section class="contact-wrapper">
+  <div class="contact-info">
+    <h2>輕目眼鏡 門市資訊</h2>
+    <p>📍 台北市大安區青春路 88 號</p>
+    <p>📞 (02) 2345-6789</p>
+    <p>✉️ hello@lighteyes.com</p>
+    <p>🕐 週一至週日 11:00 – 21:00</p>
+    <button class="promo-btn" id="promoBtn">✨ 點我領取專屬優惠</button>
+  </div>
+
+  <div class="contact-form">
+    <h2>寫信給我們</h2>
+    <form id="contactForm">
+      <label for="name">姓名</label>
+      <input type="text" id="name" placeholder="請輸入姓名" required>
+      <label for="email">電子郵件</label>
+      <input type="email" id="email" placeholder="example@mail.com" required>
+      <label for="message">訊息</label>
+      <textarea id="message" rows="5" placeholder="想告訴我們什麼呢？" required></textarea>
+      <button type="submit" class="submit-btn">送出訊息</button>
+    </form>
+    <p class="form-note" id="formNote"></p>
+  </div>
+</section>
+
+<footer><p>© 2025 輕目眼鏡 LightEyes · 簡約青春，看見美好</p></footer>
+
+<div class="modal-overlay" id="promoModal">
+  <div class="modal-content">
+    <span class="modal-close" id="modalClose">&times;</span>
+    <h2>🎉 青春限定優惠</h2>
+    <p>全站商品 <strong>85 折</strong>！</p>
+    <p>價格已自動換算為人民幣，<br>折後價直接顯示在商品頁。</p>
+    <p class="small">活動限時進行中，心動不如行動！</p>
+    <button class="modal-btn" id="modalBtn">立即選購</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  const modal = document.getElementById('promoModal');
+  const closeBtn = document.getElementById('modalClose');
+  const modalBtn = document.getElementById('modalBtn');
+  function openModal() { modal.classList.add('show'); document.body.style.overflow = 'hidden'; }
+  function closeModal() { modal.classList.remove('show'); document.body.style.overflow = ''; }
+  const promoBtn = document.getElementById('promoBtn');
+  if (promoBtn) promoBtn.onclick = openModal;
+  closeBtn.onclick = closeModal;
+  modal.onclick = (e) => { if (e.target === modal) closeModal(); };
+  document.onkeydown = (e) => { if (e.key === 'Escape' && modal.classList.contains('show')) closeModal(); };
+  modalBtn.onclick = () => { closeModal(); window.location.href = 'products.html'; };
+
+  const form = document.getElementById('contactForm');
+  const note = document.getElementById('formNote');
+  form.onsubmit = (e) => {
+    e.preventDefault();
+    const name = document.getElementById('name').value.trim();
+    note.textContent = `謝謝你，${name}！我們已收到你的訊息，會盡快回覆你 😊`;
+    note.style.color = '#6c9a8b';
+    form.reset();
+    setTimeout(() => { note.textContent = ''; }, 5000);
+  };
+})();
+</script>
+</body>
+</html>

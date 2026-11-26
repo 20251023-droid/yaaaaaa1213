@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>產品介紹 | 輕目眼鏡 LightEyes</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: "Noto Sans TC", "Microsoft JhengHei", sans-serif; background: #fafaf7; color: #3a3a3a; line-height: 1.7; }
+a { text-decoration: none; color: inherit; }
+.navbar { display: flex; justify-content: space-between; align-items: center; padding: 18px 48px; background: #fff; box-shadow: 0 2px 12px rgba(0,0,0,.04); position: sticky; top: 0; z-index: 100; }
+.logo { font-size: 1.5rem; font-weight: 700; letter-spacing: 2px; color: #6c9a8b; }
+.logo span { font-size: .9rem; font-weight: 400; color: #a8c5b8; letter-spacing: 1px; }
+.navbar nav a { margin-left: 32px; font-size: 1rem; color: #666; transition: color .3s, border-bottom .3s; padding-bottom: 4px; border-bottom: 2px solid transparent; }
+.navbar nav a:hover, .navbar nav a.active { color: #6c9a8b; border-bottom-color: #6c9a8b; }
+.page-header { text-align: center; padding: 60px 24px 30px; }
+.page-header h1 { font-size: 2.2rem; color: #3a3a3a; letter-spacing: 3px; margin-bottom: 12px; }
+.page-header p { color: #888; font-size: 1rem; }
+.product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 36px; max-width: 1100px; margin: 20px auto 80px; padding: 0 48px; }
+.product-card { background: #fff; border-radius: 20px; overflow: hidden; box-shadow: 0 8px 28px rgba(0,0,0,.05); transition: transform .3s, box-shadow .3s; }
+.product-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(108,154,139,.18); }
+.product-img img { width: 100%; height: 220px; object-fit: cover; }
+.product-info { padding: 24px; }
+.product-info h3 { font-size: 1.2rem; color: #3a3a3a; margin-bottom: 8px; letter-spacing: 1px; }
+.product-info .desc { color: #888; font-size: .92rem; margin-bottom: 14px; }
+.price-block { border-top: 1px dashed #ece7df; padding-top: 14px; margin-bottom: 18px; }
+.price-sale { font-size: 1.5rem; font-weight: 700; color: #d9534f; letter-spacing: .5px; }
+.price-sale .unit { font-size: 1rem; font-weight: 500; }
+.discount-badge { display: inline-block; background: #d9534f; color: #fff; font-size: .72rem; padding: 2px 9px; border-radius: 999px; margin-left: 8px; vertical-align: middle; letter-spacing: .5px; }
+.price-original { display: block; font-size: .85rem; color: #aaa; text-decoration: line-through; margin-top: 4px; }
+.price-note { font-size: .75rem; color: #b0a89e; margin-top: 6px; opacity: .85; }
+.promo-btn { background: #6c9a8b; color: #fff; border: none; padding: 10px 24px; font-size: .9rem; border-radius: 50px; cursor: pointer; letter-spacing: 1px; transition: background .3s, transform .2s, box-shadow .3s; box-shadow: 0 6px 20px rgba(108,154,139,.35); }
+.promo-btn:hover { background: #5a8778; transform: translateY(-2px); box-shadow: 0 10px 28px rgba(108,154,139,.45); }
+footer { text-align: center; padding: 32px 24px; background: #fff; color: #999; font-size: .85rem; letter-spacing: 1px; border-top: 1px solid #f0f0ec; }
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.45); display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: opacity .3s, visibility .3s; z-index: 1000; }
+.modal-overlay.show { opacity: 1; visibility: visible; }
+.modal-content { background: #fff; padding: 44px 40px 36px; border-radius: 24px; max-width: 420px; width: 90%; text-align: center; position: relative; box-shadow: 0 24px 60px rgba(0,0,0,.2); transform: translateY(20px); transition: transform .3s; }
+.modal-overlay.show .modal-content { transform: translateY(0); }
+.modal-close { position: absolute; top: 12px; right: 20px; font-size: 1.8rem; color: #bbb; cursor: pointer; transition: color .3s; }
+.modal-close:hover { color: #6c9a8b; }
+.modal-content h2 { font-size: 1.5rem; color: #3a3a3a; margin-bottom: 16px; letter-spacing: 1px; }
+.modal-content p { color: #666; margin-bottom: 10px; font-size: .98rem; }
+.modal-content strong { color: #e07a5f; font-size: 1.2rem; }
+.modal-content .small { font-size: .82rem; color: #aaa; margin-top: 10px; }
+.modal-btn { margin-top: 22px; padding: 12px 36px; background: #6c9a8b; color: #fff; border: none; border-radius: 50px; font-size: 1rem; cursor: pointer; letter-spacing: 1px; transition: background .3s, transform .2s; }
+.modal-btn:hover { background: #5a8778; transform: translateY(-2px); }
+@media (max-width: 900px) {
+  .navbar { padding: 14px 24px; flex-direction: column; gap: 10px; }
+  .navbar nav a { margin: 0 12px; }
+  .product-grid { padding: 0 24px; grid-template-columns: 1fr; }
+  .page-header h1 { font-size: 1.7rem; }
+}
+@media (max-width: 480px) {
+  .modal-content { padding: 36px 24px 28px; }
+}
+</style>
+</head>
+<body>
+<header class="navbar">
+  <div class="logo">輕目 <span>LightEyes</span></div>
+  <nav>
+    <a href="index.html">首頁</a>
+    <a href="products.html" class="active">產品介紹</a>
+    <a href="contact.html">聯絡我們</a>
+  </nav>
+</header>
+
+<section class="page-header">
+  <h1>我們的眼鏡</h1>
+  <p>每一副，都是為青春的你量身打造。</p>
+</section>
+
+<section class="product-grid" id="productGrid"></section>
+
+<footer><p>© 2025 輕目眼鏡 LightEyes · 簡約青春，看見美好</p></footer>
+
+<div class="modal-overlay" id="promoModal">
+  <div class="modal-content">
+    <span class="modal-close" id="modalClose">&times;</span>
+    <h2>🎉 青春限定優惠</h2>
+    <p>全站商品 <strong>85 折</strong>！</p>
+    <p>價格已自動換算為人民幣，<br>折後價直接顯示在商品頁。</p>
+    <p class="small">活動限時進行中，心動不如行動！</p>
+    <button class="modal-btn" id="modalBtn">立即選購</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  const TWD_TO_CNY = 1 / 4.96;
+  const DISCOUNT = 0.85;
+  const fmtCNY = n => '¥' + Math.round(n).toLocaleString('zh-CN');
+
+  const productList = [
+    { name: '晨光系列', desc: '細金屬圓框，溫柔奶茶色，適合日常與上班。', twd: 2680, img: 'https://images.unsplash.com/photo-1577803645773-f96470509666?w=400&h=300&fit=crop', alt: '晨光系列 圓框眼鏡' },
+    { name: '果凍系列', desc: '透明彩色膠框，輕盈活潑，青春感滿分。', twd: 2280, img: 'https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=400&h=300&fit=crop', alt: '果凍系列 透明膠框' },
+    { name: '簡約方框', desc: '霧黑細框，經典百搭，展現俐落氣質。', twd: 2880, img: 'https://images.unsplash.com/photo-1574258495973-f010dfbb5371?w=400&h=300&fit=crop', alt: '簡約方框' },
+    { name: '運動系列', desc: '彈性輕量材質，貼合臉型，運動也不滑落。', twd: 3180, img: 'https://images.unsplash.com/photo-1556306535-0f09a537f0a3?w=400&h=300&fit=crop', alt: '運動系列 輕量眼鏡' },
+    { name: '文青系列', desc: '復古金屬框，細緻雕花，散發知性魅力。', twd: 3080, img: 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=400&h=300&fit=crop', alt: '文青系列 金屬雕花' },
+    { name: '輕鈦系列', desc: '極輕鈦金屬，僅 8 克重，近乎無感配戴。', twd: 3880, img: 'https://images.unsplash.com/photo-1583394838336-acd977736f90?w=400&h=300&fit=crop', alt: '輕鈦系列 極輕眼鏡' }
+  ];
+
+  const grid = document.getElementById('productGrid');
+  grid.innerHTML = productList.map(p => {
+    const originalCNY = p.twd * TWD_TO_CNY;
+    const saleCNY = originalCNY * DISCOUNT;
+    return `
+      <div class="product-card">
+        <div class="product-img"><img src="${p.img}" alt="${p.alt}"></div>
+        <div class="product-info">
+          <h3>${p.name}</h3>
+          <p class="desc">${p.desc}</p>
+          <div class="price-block">
+            <span class="price-sale"><span class="unit">¥</span>${Math.round(saleCNY).toLocaleString('zh-CN')}</span>
+            <span class="discount-badge">85折</span>
+            <span class="price-original">原價 ${fmtCNY(originalCNY)}</span>
+            <div class="price-note">實際支付以結算頁為準</div>
+          </div>
+          <button class="promo-btn product-promo">取得優惠</button>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  const modal = document.getElementById('promoModal');
+  const closeBtn = document.getElementById('modalClose');
+  const modalBtn = document.getElementById('modalBtn');
+  function openModal() { modal.classList.add('show'); document.body.style.overflow = 'hidden'; }
+  function closeModal() { modal.classList.remove('show'); document.body.style.overflow = ''; }
+  document.addEventListener('click', (e) => {
+    if (e.target.closest('.product-promo')) { e.preventDefault(); openModal(); }
+  });
+  closeBtn.onclick = closeModal;
+  modal.onclick = (e) => { if (e.target === modal) closeModal(); };
+  document.onkeydown = (e) => { if (e.key === 'Escape' && modal.classList.contains('show')) closeModal(); };
+  modalBtn.onclick = () => { closeModal(); };
+})();
+</script>
+</body>
+</html>
